@@ -54,7 +54,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="card.cs" />
-    <Compile Include="CardPool.cs" />
     <Compile Include="Card_Info_Enums.cs" />
     <Compile Include="Live\Extras\Malody_map.cs" />
     <Compile Include="Live\Extras\MapConverter.cs" />

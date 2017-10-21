@@ -17,9 +17,7 @@ namespace LoveKicher.Llsif
         SR = 3,
         SSR = 5,
         UR = 4,
-        UUR = 6,//玩
-        LR = 7,
-        Skill = 32//技能卡专属
+ 
         //more.....
     }
 
@@ -31,16 +29,11 @@ namespace LoveKicher.Llsif
     {
         Unknown = 0,
         Smile = 1,//SIF的数据库值，不能修改
-        Pure = 2,//..
-        Cool = 3,//..
-        Happy = 4,
-        All = 5,//..
-        Moe = 6,
-        Kowai = 7,
-        Gay = 8,
-        Afire = 66,//梨梨
+        Pure = 2,
+        Cool = 3,
 
-        
+        All = 5,
+      
         //more....
     }
 }
