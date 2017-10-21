@@ -23,7 +23,7 @@ namespace LoveKicher.Llsif
 
 
     /// <summary>
-    /// 指定卡片属性
+    /// 指定属性
     /// </summary>
     public enum Attribute
     {

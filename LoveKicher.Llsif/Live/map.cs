@@ -18,7 +18,7 @@ namespace LoveKicher.Llsif.Live
         /// <summary>note属性，通常情况一个谱面应该为同一个值</summary>
         public Attribute notes_attribute { get; set; }
 
-        /// <summary>？</summary>
+        /// <summary>滑键分组</summary>
         public int notes_level { get; set; }
 
         /// <summary>note效果类型</summary>
