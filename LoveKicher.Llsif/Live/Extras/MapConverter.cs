@@ -61,7 +61,7 @@ namespace LoveKicher.Llsif.Live.Extras
             var last = 60 / bpm;
 
             var setting = MalodyMap.note.Last() as setting_note;
-            var offset = setting?.offset / 1000 ?? 0;
+            double offset = setting?.offset / 1000.0 ?? 0.0;
 
             foreach (var _n in MalodyMap.note)
             {
@@ -75,7 +75,7 @@ namespace LoveKicher.Llsif.Live.Extras
                     note.timing_sec = Math.Round(time, 3);
 
                     note.effect = NoteEffect.Normal;
-                    note.effect_value = 2;
+                    note.effect_value = 0.05;
 
                     if (MapAttribute == Attribute.All)
                         note.notes_attribute = (Attribute)Enum.ToObject(
@@ -106,12 +106,12 @@ namespace LoveKicher.Llsif.Live.Extras
             return m;
         }
 
-        static double GetTimeFromBeat(int[] beat, double lastTime, int offset)
+        static double GetTimeFromBeat(int[] beat, double lastTime, double offset)
         {
             double section = beat[0] * lastTime;//当前小节的起始时刻
             int diff = beat[2];//当前小节是几分音符
             int count = beat[1];//当前note在第几个音符的位置
-            return section + (lastTime / diff) * count + offset;
+            return section + (lastTime / diff) * count - offset;
         }
     }
 }
