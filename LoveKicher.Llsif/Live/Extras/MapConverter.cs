@@ -20,24 +20,37 @@ namespace LoveKicher.Llsif.Live.Extras
         public MapConverter(string mapJson)
         {
             var map = JsonConvert.DeserializeObject<Malody_map>(mapJson);
-            //Box
-            List<object> l = new List<object>();
-            foreach (var o in map.note)
+
+            if (map.meta.mode == SongMode.Key)
             {
-                var n = o as JObject;
-                if (n["sound"] == null)
+                if (map.meta.mode_ext.ContainsKey("column")
+                               && (long)map.meta.mode_ext["column"] == 9)
                 {
-                    if (n["endbeat"] != null)
-                        l.Add(n.ToObject<bar>());
-                    else
-                        l.Add(n.ToObject<note>());
+                    //装箱和转换note类型
+                    List<object> l = new List<object>();
+
+                    foreach (var o in map.note)
+                    {
+                        var n = o as JObject;
+                        if (n["type"] == null)
+                        {
+                            if (n["endbeat"] != null)
+                                l.Add(n.ToObject<bar>());
+                            else
+                                l.Add(n.ToObject<note>());
+                        }
+                        else
+                            l.Add(n.ToObject<setting_note>());
+                    }
+                    map.note = null;
+                    map.note = l;
+                    MalodyMap = map;
                 }
                 else
-                    l.Add(n.ToObject<setting_note>());
+                    throw new ArgumentException("The column count of the map must be 9.");
             }
-            map.note = null;
-            map.note = l;
-            MalodyMap = map;
+            else
+                throw new ArgumentException("Only KEY mode map can be converted.");
         }
         public Malody_map MalodyMap { get; set; }
 
@@ -75,7 +88,7 @@ namespace LoveKicher.Llsif.Live.Extras
                     note.timing_sec = Math.Round(time, 3);
 
                     note.effect = NoteEffect.Normal;
-                    note.effect_value = 0.05;
+                    note.effect_value = 2;
 
                     if (MapAttribute == Attribute.All)
                         note.notes_attribute = (Attribute)Enum.ToObject(
@@ -95,7 +108,7 @@ namespace LoveKicher.Llsif.Live.Extras
 
                         note.effect_value = Math.Round(endTime - time, 3);
                     }
-                    
+
 
                     m.Add(note);
 
