@@ -24,7 +24,7 @@ namespace LoveKicher.Llsif.Live.Extras
             if (map.meta.mode == SongMode.Key)
             {
                 if (map.meta.mode_ext.ContainsKey("column")
-                               && (long)map.meta.mode_ext["column"] == 9)
+                    && (long)map.meta.mode_ext["column"] == 9)
                 {
                     //装箱和转换note类型
                     List<object> l = new List<object>();
@@ -69,7 +69,7 @@ namespace LoveKicher.Llsif.Live.Extras
         {
             var m = new List<map>();
             var rnd = new Random();
-
+            //假定只有一个BPM数据
             var bpm = MalodyMap.time[0].bpm;
             var last = 60 / bpm;
 

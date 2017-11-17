@@ -1,4 +1,6 @@
-﻿using System;
+﻿#define TEST
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +10,9 @@ using Newtonsoft.Json;
 using LoveKicher.Llsif.Live.Extras;
 using System.IO;
 using attribute = LoveKicher.Llsif.Attribute;
+using LoveKicher.Llsif.Live;
+
+
 namespace Malody2SIF
 {
     class Program
@@ -16,7 +21,7 @@ namespace Malody2SIF
         {
             internal string fileName;
             internal attribute attribute = attribute.All;
-            internal bool isRandom = false;
+            internal RandomMode random = RandomMode.None;
             internal bool tryCastSwing = false;
         }
 
@@ -65,13 +70,28 @@ namespace Malody2SIF
 
             try
             {
+                List<map> m;
+
                 var malodyJson = File.ReadAllText(cfg.fileName);
+#if !TEST
                 var c = new MapConverter(malodyJson);
                 c.MapAttribute = cfg.attribute;
-                var map = c.Convert();
+                m = c.Convert();
+#else
+                m = JsonConvert.DeserializeObject<List<map>>(malodyJson);
+#endif
+                if (cfg.random != RandomMode.None)
+                {
+                    m = MapEditor.GenerateRandomMap(m, cfg.random);
+                }
 
-                File.WriteAllText(outputFile, JsonConvert.SerializeObject(map));
-                Console.Write($"Convertion finished successfully!Total available note count is {map.Count}.");
+                if (cfg.tryCastSwing )
+                {
+                    m = MapEditor.GenerateSwingMap(m, 0.1);
+                }
+
+                File.WriteAllText(outputFile, JsonConvert.SerializeObject(m));
+                Console.Write($"Convertion finished successfully!Total available note count is {m.Count}.");
             }
             catch (Exception ex)
             {
@@ -111,7 +131,31 @@ namespace Malody2SIF
                         break;
                 }
             }
+            //=========parse random
+            if (args.Contains("-r"))
+            {
+                var type = args[args.IndexOf("-r") + 1];
+                switch (type)
+                {
+                    case "1":
+                        cfg.random = RandomMode.New;
+                        break;
+                    case "2":
+                        cfg.random = RandomMode.Old;
+                        break;
+                    case "3":
+                        cfg.random = RandomMode.Unlimited;
+                        break;
+                    default:
+                        break;
+                }
 
+            }
+            //=========parse swing cast
+            if (args.Contains("-s"))
+            {
+                cfg.tryCastSwing = true;
+            }
 
         }
     }

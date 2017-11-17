@@ -57,6 +57,7 @@
     <Compile Include="Card_Info_Enums.cs" />
     <Compile Include="Live\Extras\Malody_map.cs" />
     <Compile Include="Live\Extras\MapConverter.cs" />
+    <Compile Include="Live\Extras\MapEditor.cs" />
     <Compile Include="Live\LiveInfo.cs" />
     <Compile Include="Live\map.cs" />
     <Compile Include="Live\SongInfo.cs" />

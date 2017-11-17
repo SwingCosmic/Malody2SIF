@@ -37,7 +37,7 @@ namespace LoveKicher.Llsif.Live
     /// </summary>
     public enum NoteEffect
     {
-        /// <summary>未知</summary>
+        /// <summary>未知，虽然lua代码写的是random</summary>
         Unknown = 0,
         /// <summary>单点，默认类型</summary>
         Normal = 1,
@@ -45,13 +45,19 @@ namespace LoveKicher.Llsif.Live
         Token = 2,
         /// <summary>长条</summary>
         Hold = 3,
+        /// <summary>星星单点（通常的类型）</summary>
+        Star = 4,//star1
         /// <summary>星星单点</summary>
-        Star = 4,
-
+        Star3 = 5,
+        /// <summary>星星单点</summary>
+        Star5 = 6,
+        /// <summary>星星单点</summary>
+        Star9 = 7,
         /// <summary>单滑键</summary>
         Swing = 11,
-
+        /// <summary>滑键道具</summary>
+        SwingToken = 12,
         /// <summary>滑键开始的长条</summary>
-        HoldSwing = 13,
+        SwingHold = 13,
     }
 }
