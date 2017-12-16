@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="sif_def.js"></script>
+    <script src="BeatmapConverter.js"></script>
+</head>
+<body>
+    <style>
+        textarea{
+            width:100%;
+            min-height:300px;
+        }
+    </style>
+    <script>
+        function c() {
+            var a = new LoveKicher.ma2sif.BeatmapConverter(
+                JSON.parse(document.getElementById('ma').value));
+            document.getElementById('sif').value = a.convertToSifMap();
+        }
+    </script>
+    <form style="width:80%;margin:0 auto;">
+        <textarea id="ma" ></textarea><br />
+        <input type="button"  value="Convert" onclick="c()"/><br />
+        <textarea id="sif" ></textarea>
+    </form>
+</body>
+</html>

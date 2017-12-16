@@ -1,4 +1,4 @@
-﻿#define TEST
+﻿//#define TEST
 
 using System;
 using System.Collections.Generic;
@@ -76,7 +76,7 @@ namespace Malody2SIF
 #if !TEST
                 var c = new MapConverter(malodyJson);
                 c.MapAttribute = cfg.attribute;
-                m = c.Convert();
+                m = c.ConvertToSifMap();
 #else
                 m = JsonConvert.DeserializeObject<List<map>>(malodyJson);
 #endif

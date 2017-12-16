@@ -13,11 +13,13 @@ namespace LoveKicher.Llsif.Live
     {
         /// <summary>μ's（包括A-Rise）</summary>
         Muse = 1,
-        /// <summary>Aqours</summary>
+        /// <summary>Aqours（包括Saint Snow）</summary>
         Aqours = 2
     }
 
-
+    /// <summary>
+    /// 指定歌曲信息
+    /// </summary>
     public class SongInfo
     {
         /// <summary>歌曲ID，主键</summary>
@@ -26,7 +28,7 @@ namespace LoveKicher.Llsif.Live
         /// <summary>歌曲名称</summary>
         public string name { get; set; }
 
-        /// <summary>歌曲名的假名注音，但写法是错误的</summary>
+        /// <summary>歌曲名的假名注音，但此写法其实并不能表示正确读音</summary>
         public string name_kana { get; set; }
 
         /// <summary>title文件名</summary>

@@ -1,0 +1,12 @@
+{
+  "name": "malody2-sif_js",
+  "version": "0.0.0",
+  "description": "Malody2SIF_js",
+  "main": "app.js",
+  "author": {
+    "name": "SwingCosmic"
+  },
+  "devDependencies": {
+    "@types/node": "^6.0.87"
+  }
+}

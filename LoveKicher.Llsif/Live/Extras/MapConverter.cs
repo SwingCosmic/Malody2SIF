@@ -9,17 +9,23 @@ using System.Threading.Tasks;
 namespace LoveKicher.Llsif.Live.Extras
 {
     /// <summary>
-    /// Malody谱面转换器
+    /// Malody与SIF的谱面互转器
     /// </summary>
     public class MapConverter
     {
+
+        public MapConverter(List<map> map)
+        {
+            SifMap = map;
+        }
+
         public MapConverter(Malody_map map)
         {
             MalodyMap = map;
         }
-        public MapConverter(string mapJson)
+        public MapConverter(string malodyMapJson)
         {
-            var map = JsonConvert.DeserializeObject<Malody_map>(mapJson);
+            var map = JsonConvert.DeserializeObject<Malody_map>(malodyMapJson);
 
             if (map.meta.mode == SongMode.Key)
             {
@@ -52,20 +58,29 @@ namespace LoveKicher.Llsif.Live.Extras
             else
                 throw new ArgumentException("Only KEY mode map can be converted.");
         }
-        public Malody_map MalodyMap { get; set; }
+
+        private Malody_map MalodyMap { get; set; }
+
+        private List<map> SifMap { get; set; }
 
         /// <summary>
         /// 获取或设置歌曲属性。
         /// 默认为<see cref="Attribute.All"/>，
         /// 该值表示全曲note的属性随机。
         /// </summary>
-        public Attribute MapAttribute { get; set; } =
-            Attribute.All;
+        public Attribute MapAttribute { get; set; } = Attribute.All;
+
         /// <summary>
-        /// 执行转换
+        /// 获取或设置额外的谱面延迟
         /// </summary>
-        /// <returns>转换后的SIF谱面</returns>
-        public List<map> Convert()
+        public double ExtraOffset { get; set; } = 0;
+
+
+        /// <summary>
+        /// 转换为SIF谱面
+        /// </summary>
+        /// <returns>转换后的谱面</returns>
+        public List<map> ConvertToSifMap()
         {
             var m = new List<map>();
             var rnd = new Random();
@@ -74,7 +89,7 @@ namespace LoveKicher.Llsif.Live.Extras
             var last = 60 / bpm;
 
             var setting = MalodyMap.note.Last() as setting_note;
-            double offset = setting?.offset / 1000.0 ?? 0.0;
+            double offset = (setting?.offset / 1000.0 ?? 0) + ExtraOffset;
 
             foreach (var _n in MalodyMap.note)
             {
@@ -103,9 +118,7 @@ namespace LoveKicher.Llsif.Live.Extras
                     {
                         var n2 = _n as bar;
                         note.effect = NoteEffect.Hold;
-
                         var endTime = GetTimeFromBeat(n2.endbeat, last, offset);
-
                         note.effect_value = Math.Round(endTime - time, 3);
                     }
 
@@ -124,7 +137,7 @@ namespace LoveKicher.Llsif.Live.Extras
             double section = beat[0] * lastTime;//当前小节的起始时刻
             int diff = beat[2];//当前小节是几分音符
             int count = beat[1];//当前note在第几个音符的位置
-            return section + (lastTime / diff) * count - offset;
+            return section + (lastTime / diff) * count + offset;
         }
     }
 }
