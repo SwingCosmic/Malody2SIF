@@ -51,12 +51,11 @@ namespace LoveKicher.ma2sif {
             let offset: number = setting.offset / 1000.0;
 
             for (let n of this.malodyMap.note) {
-                let note = new map();
-
                 if (n.type == undefined) {
+                    let note = new map();
+
                     let time = GetTimeFromBeat(n.beat, last, offset);
                     note.timing_sec = parseFloat(time.toFixed(3))
-
                     note.effect = note_effect.Normal;
                     note.effect_value = 2;
 
@@ -75,9 +74,8 @@ namespace LoveKicher.ma2sif {
                         note.effect_value = parseFloat(endTime.toFixed(2));
                     }
 
+                    m.push(note);
                 }
-
-                m.push(note);
             }
 
             return JSON.stringify(m);
