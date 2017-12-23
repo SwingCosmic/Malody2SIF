@@ -15,10 +15,10 @@
         }
     </style>
     <script>
+        var converter = new LoveKicher.SifLive.BeatmapConverter();
         function c() {
-            var a = new LoveKicher.ma2sif.BeatmapConverter(
-                JSON.parse(document.getElementById('ma').value));
-            document.getElementById('sif').value = a.convertToSifMap();
+            converter.load(JSON.parse(document.getElementById('ma').value));
+            document.getElementById('sif').value = converter.convertToSifMap();
         }
     </script>
     <form style="width:80%;margin:0 auto;">

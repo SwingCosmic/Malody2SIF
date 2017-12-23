@@ -25,6 +25,14 @@ enum note_effect {
     SwingIcon = 12,
     SwingHold = 13,
 }
+
+enum random_mode {
+    None = 0,
+    New = 1,
+    Old = 2,
+    Unlimited = 3
+}
+
 /**
  * SIF Beatmap
  */

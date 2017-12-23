@@ -26,6 +26,13 @@ var note_effect;
     note_effect[note_effect["SwingIcon"] = 12] = "SwingIcon";
     note_effect[note_effect["SwingHold"] = 13] = "SwingHold";
 })(note_effect || (note_effect = {}));
+var random_mode;
+(function (random_mode) {
+    random_mode[random_mode["None"] = 0] = "None";
+    random_mode[random_mode["New"] = 1] = "New";
+    random_mode[random_mode["Old"] = 2] = "Old";
+    random_mode[random_mode["Unlimited"] = 3] = "Unlimited";
+})(random_mode || (random_mode = {}));
 /**
  * SIF Beatmap
  */
